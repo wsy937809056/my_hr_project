@@ -30,6 +30,15 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    proxy: {   //反向代理
+      '/api': {
+        target: 'http://ihrm-java.itheima.net/',//要代理的地址
+        changeOrigin: true,//开启跨域(协议，域名，端口号)
+        // pathRewrite:{    //路径重写
+        //   '/api': ''
+        // }
+      },
+    },
     port: port,
     open: true,
     overlay: {

@@ -6,15 +6,15 @@
         <h3 class="title">登录</h3>
       </div>
 
-      <el-form-item prop="username">
+      <el-form-item prop="mobile">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
+          ref="mobile"
+          v-model="loginForm.mobile"
+          placeholder="请输入账号"
+          name="mobile"
           type="text"
           tabindex="1"
           auto-complete="on"
@@ -30,7 +30,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="请输入密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -41,7 +41,7 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
 
 
     </el-form>
@@ -49,33 +49,31 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validPhone } from '@/utils/validate'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
-        callback()
-      }
+    //验证手机号
+    const validPhones = (rule, value, callback) => {
+      validPhone(value) ? callback() : callback(new Error('请输入正确手机号'))
     }
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
-      } else {
-        callback()
-      }
-    }
+    
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        mobile: '13800000002',
+        password: '123456'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        mobile: [
+          { required: true, trigger: 'blur', message:'手机号不能为空'},
+          { trigger: 'blur', validator: validPhones, }
+        ],
+        password: [
+          { required: true, trigger: 'blur', message:'密码不能为空' },
+          { min: 6, max: 16, message: '长度为6到16个字符', trigger: 'blur'}
+        ]
       },
       loading: false,
       passwordType: 'password',
@@ -91,6 +89,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['user/logins']),
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -102,15 +101,23 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          try{//
+            await this['user/logins'](this.loginForm)
+            this.$router.push('/')
+          }catch(err){
+            console.log(err);
+          }finally{
             this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
+          }
+        //   this.loading = true
+        //   this.$store.dispatch('user/login', this.loginForm).then(() => {
+        //     this.$router.push({ path: this.redirect || '/' })
+        //     this.loading = false
+        //   }).catch(() => {
+        //     this.loading = false
+        //   })
         } else {
           console.log('error submit!!')
           return false

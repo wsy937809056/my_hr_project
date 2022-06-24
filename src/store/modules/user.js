@@ -1,6 +1,6 @@
-// import { login, logout, getInfo } from '@/api/user'
-// import { getToken, setToken, removeToken } from '@/utils/auth'
-// import { resetRouter } from '@/router'
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
 // const getDefaultState = () => {
 //   return {
@@ -87,11 +87,46 @@
 //     })
 //   }
 // }
+// 
+// export default {
+//   namespaced: true,
+//   state:{},
+//   mutations:{},
+//   actions:{}
+// }
+
+
+const state = {
+  token:getToken()  //从缓存(cookie)中读取token
+}
+
+const mutations = {
+  setTokens(state,token){
+    state.token = token //设置vuex中的token
+    setToken(token)  //获取缓存中的token
+  },
+  removeTokens(state){
+    state.token = null  //删除vuex中的token
+    removeToken()       //删除缓存中token
+  }
+}
+
+const actions = {
+  async logins(context,data){
+    const result = await login(data)   //调用登录接口，返回数据
+    //axios默认给数据加了一层data
+    //if(result.data.success){
+      context.commit('setTokens',result)
+    //}
+  },
+  logout(context){
+    context.commit('removeTokens')
+  }
+}
 
 export default {
   namespaced: true,
-  state:{},
-  mutations:{},
-  actions:{}
+  state,
+  mutations,
+  actions
 }
-
