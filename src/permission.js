@@ -10,7 +10,7 @@ import {getuserinfo, setuserinfo, removeuserinfo, } from '@/utils/session'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login','/404'] //白名单
+const whiteList = ['/login','/404',] //白名单
 
 //前置路由守卫
 router.beforeEach(async(to, from, next) => {

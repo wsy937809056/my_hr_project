@@ -32,7 +32,8 @@ module.exports = {
   devServer: {
     proxy: {   //反向代理
       '/api': {
-        target: 'http://ihrm-java.itheima.net/',//要代理的地址
+        //target: 'http://ihrm-java.itheima.net/',//要代理的地址
+        target: 'http://ihrm.itheima.net/',
         changeOrigin: true,//开启跨域(协议，域名，端口号)
         // pathRewrite:{    //路径重写
         //   '/api': ''
