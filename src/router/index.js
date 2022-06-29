@@ -53,7 +53,13 @@ export const constantRoutes = [
         name: 'Employees',
         component: () => import('@/views/employees/index'),
         meta: { title: '员工', icon: 'people' }
-      }
+      },
+      {
+        path: 'update',
+        name: 'Update',
+        component: () => import('@/views/employees/Update/index'),
+        hidden: true,
+      },
     ]
   },
 
