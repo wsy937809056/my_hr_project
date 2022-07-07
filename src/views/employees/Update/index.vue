@@ -1,6 +1,5 @@
 <template>
     <div>
-        <p>{{$route.params.id}}</p>
         <template class="updates">
             <el-tabs>
                 <el-tab-pane label="登录账户设置">
@@ -56,6 +55,7 @@ export default {
             try {
                 // 校验
                 await this.$refs.updateForm.validate()
+                console.log(this.$refs.updateForm);
                 await saveUserDetailById({ ...this.updateInfo, password: this.updateInfo.password2 }) // 将新密码的值替换原密码的值
                 this.$message.success('保存成功')
             } catch (error) {

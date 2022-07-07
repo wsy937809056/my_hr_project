@@ -15,6 +15,18 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import Screenfull from '@/components/ScreenFull'
+Vue.component('Screenfull',Screenfull)
+import ThemePicker from '@/components/ThemePicker'
+Vue.component('ThemePicker',ThemePicker)
+import i18n from '@/lang'
+
+import Lang from '@/components/Lang'
+Vue.component('Lang',Lang)
+
+Vue.use(ElementUI,{
+  i18n: (key,value) => i18n.t(key,value)
+})
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -29,9 +41,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
+// Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
@@ -39,5 +51,6 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 })

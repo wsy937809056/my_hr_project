@@ -178,9 +178,9 @@ export default {
         },
         //添加新员工
         async addUsers(addFrom){
-            this.dialogFormVisible = false
             await addUser(this.form)
             //console.log(this.$refs[addFrom]);
+            this.dialogFormVisible = false
             this.$refs[addFrom].resetFields()//重置表单数据
             this.getEmpLIsts()
         },
@@ -250,7 +250,7 @@ export default {
     width: 40%;
 }
 /deep/ .el-dialog__header{
-  padding: 0 20px;  
+  padding: 20px 20px;  
 }
 /deep/ .el-dialog__body{
   padding: 0 20px;  

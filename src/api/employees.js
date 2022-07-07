@@ -21,7 +21,7 @@ export function deleteUser(id) {
 export function getPart() {
   return request({
       url: '/company/department',
-      method: 'get',
+      method: 'get',  //get可省略
   })
 }
 

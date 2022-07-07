@@ -4,14 +4,20 @@
 
     <!-- <breadcrumb class="breadcrumb-container" /> -->
     <span>欢迎登录</span>
+    <Lang/>
+    
+    
     <span style="float: right;">{{userinfo.username}}
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
+          <Screenfull/>
+          <ThemePicker/>
           <img :src="userinfo.staffPhoto" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
+        
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
@@ -45,7 +51,7 @@ export default {
   },
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
   },
   computed: {
     ...mapGetters([
@@ -123,7 +129,7 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
-
+      width: 100px;
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
@@ -133,6 +139,9 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
+          position: relative;
+          top: -100px;
+          right: -65px;
         }
 
         .el-icon-caret-bottom {
@@ -147,3 +156,4 @@ export default {
   }
 }
 </style>
+px

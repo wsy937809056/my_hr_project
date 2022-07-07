@@ -25,24 +25,24 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
-  {
-    path: '/departments',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'Departments',
-        component: () => import('@/views/departments/index'),
-        meta: { title: '组织架构', icon: 'tree' }
-      }
-    ]
-  },
+  // {
+  //   path: '/departments',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'departments',
+  //       component: () => import('@/views/departments/index'),
+  //       meta: { title: '组织架构', icon: 'tree' }
+  //     }
+  //   ]
+  // },
 
   {
     path: '/employees',
@@ -50,13 +50,13 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Employees',
+        name: 'employees',
         component: () => import('@/views/employees/index'),
         meta: { title: '员工', icon: 'people' }
       },
       {
         path: 'update',
-        name: 'Update',
+        name: 'update',
         component: () => import('@/views/employees/Update/index'),
         hidden: true,
       },
@@ -69,7 +69,7 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Setting',
+        name: 'setting',
         component: () => import('@/views/setting/index'),
         meta: { title: '公司设置', icon: 'setting' }
       }
@@ -82,9 +82,19 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Salarys',
+        name: 'salarys',
         component: () => import('@/views/salarys/index'),
         meta: { title: '工资', icon: 'money' }
+      },
+      {
+        path: 'look/:id',  
+        component: () => import('@/views/salarys/look'),
+        hidden: true,
+      },
+      {
+        path: 'setting',  
+        component: () => import('@/views/salarys/setting'),
+        hidden: true,
       }
     ]
   },
@@ -95,9 +105,14 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Social',
+        name: 'social',
         component: () => import('@/views/social/index'),
         meta: { title: '社保', icon: 'table' }
+      },
+      {
+        path: 'table/:yearMonth',  
+        component: () => import('@/views/social/table'),
+        hidden: true,
       }
     ]
   },
@@ -108,7 +123,7 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Attendances',
+        name: 'attendances',
         component: () => import('@/views/attendances/index'),
         meta: { title: '考勤', icon: 'skill' }
       }
@@ -121,25 +136,30 @@ export const constantRoutes = [
     children: [
       {
         path: '',
-        name: 'Approvals',
+        name: 'approvals',
         component: () => import('@/views/approvals/index'),
         meta: { title: '审批', icon: 'tree-table' }
+      },
+      {
+        path: 'look/:id',  //query传参 动态路由传参
+        component: () => import('@/views/approvals/look'),
+        hidden: true,
       }
     ]
   },
 
-  {
-    path: '/permission',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        name: 'Permission',
-        component: () => import('@/views/permission/index'),
-        meta: { title: '权限管理', icon: 'lock' }
-      }
-    ]
-  },
+  // {
+  //   path: '/permission',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'Permission',
+  //       component: () => import('@/views/permission/index'),
+  //       meta: { title: '权限管理', icon: 'lock' }
+  //     }
+  //   ]
+  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
